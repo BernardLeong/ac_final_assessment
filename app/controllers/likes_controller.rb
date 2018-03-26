@@ -12,6 +12,7 @@ class LikesController < ApplicationController
     note = Note.find(params[:id])
     like = Like.find_by(user: current_user, note: note)
     #UserMailer.note_unlike_email(like).deliver_later
+    #byebug
     like.destroy
     redirect_to notes_path
   end
