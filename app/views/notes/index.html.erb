@@ -1,4 +1,16 @@
-<h1>Hi</h1>
+<h1>Hi <%= current_user.email %></h1>
+<ul>
+
+  <% @users.each do |user| %>
+    <li>
+      <%= user.email %>
+        <%= render partial: "follow", locals: {user: user} %>
+        <%= user.followings.count %>
+    </li>
+  <% end %>
+
+
+</ul>
 
 <% @notes.each do |note| %>
   <p><%= note.title %></p>
