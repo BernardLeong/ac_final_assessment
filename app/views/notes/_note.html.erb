@@ -1,0 +1,65 @@
+<div class="notes_all">
+  <h3>Saluations! <%= current_user.username %></h3>
+  <% @notes.each do |note| %>
+    <p><%= note.title %></p> 
+    <p><%= note.body %></p> 
+    <p><%= note.user.username %></p> 
+    <% if current_user == note.user %>
+      <%= link_to 'Delete note', note_path(note), method: :delete, data: {confirm:"Delete this note?"} %>
+      <%= link_to 'Edit note', edit_note_path(note) %>
+    <% end %>
+    <% if current_user %>
+      <% if Follow.find_by(following_id: note.user, follower_id: current_user) %>
+        <% else %>
+    <% if Like.where(note: note, user: current_user) %>
+    <% else %>
+    <%= link_to 'Unfollow', unfollow_user_path(note.user_id), remote: true, method: :delete %>
+  <% end %>
+        </div>
+      <% end %>
+  <% if Like.find_by(note: note, user: current_user) %>
+    <%= link_to "Unlike", unlike_note_path(note), method: :delete %>
+      <%= note.likes.count %>    
+  <% else %>
+    <%= link_to "Like", like_note_path(note), method: :post %>
+    <%= note.likes.count %>
+  <% end %>
+    <% else %>
+      <div>
+        <%= note.title %> <br>
+        <%= note.body %> <br>
+        <%= note.user.username %> <br>
+      </div>
+      <br><hr><br>
+    <% end %>
+  <% end %>
+</div>
+
+<div class="sidebar">
+  <% if current_user %>
+    <h2>People I am following</h2>
+    <% if @follows == nil %>
+      <div>No User You Are Following</div>
+    <% else %>
+      <% @follows.each do |follow| %>
+        <%= follow.following.username %>
+        <%= link_to 'Unfollow', unfollow_user_path(follow.following.id), remote: true, method: :delete %>
+        <br>
+      <% end %>
+      <hr>
+    <% end %>
+    <h3>Users yet to follow</h3>
+    <% @users.each do |user| %>
+      <% if Follow.find_by(following_id: user, follower_id: current_user) %>
+      <% else %>
+        <%= user.username %>
+        <%= link_to 'Follow', follow_user_path(user), remote: true, method: :post %>
+      <% end%>
+    <% end %>
+  <% else %>
+    <h3>All users</h3>
+    <% @users.each do |user| %>
+      <%= user.username %> <br>
+    <% end %>
+  <% end %>
+</div>
