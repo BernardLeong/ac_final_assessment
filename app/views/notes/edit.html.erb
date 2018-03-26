@@ -1,12 +1,9 @@
-<h1>Edit your notes here!</h1>
+<h1>Edit Note</h1>
 
 <%= form_for @note, url: note_path, method: :put do |note| %>
-
-<%= note.text_field :title%>
-<%= note.text_area :body%>
-
-<div>
-<%= note.submit %>
-</div>
-
+  <div><%= note.text_field :title, :maxlength => 200, placeholder: "Your message gist here!"  %></div> 
+  <div><%= note.text_area :body, :maxlength => 300, placeholder: "Your message body here!"%></div>
+  <%= note.submit %>
 <% end %>
+<br>
+<input type="button" onclick="window.history.go(-1)" value="Go back!" >

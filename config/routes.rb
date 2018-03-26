@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
-  devise_for :users 
-  resources :notes do 
+
+  root "notes#index"
+
+  devise_for :users, controllers: { registrations: 'users/registrations' } 
+  
+  resources :users do
+    post 'follow', on: :member, to: 'follows#create'
+    delete 'unfollow', on: :member, to: 'follows#destroy'
+  end
+  
+  resources :notes do
     post 'like', on: :member, to: 'likes#create'
     delete 'unlike', on: :member, to: 'likes#destroy'
-
   end
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  root "notes#index"
 end
