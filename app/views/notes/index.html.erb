@@ -1,0 +1,13 @@
+<h1>Hi</h1>
+
+<% @notes.each do |note| %>
+  <%= note.title %>
+  <%= note.body %>
+  <%= link_to "Delete note?", note_path(note), method: :delete %>
+  <%= link_to "Edit note?", edit_note_path(note) %>
+  
+<% end %>
+
+<%= link_to "Create new note", new_note_path %>
+
+<%= link_to "Sign_out",  destroy_user_session_path, method: :destroy %>

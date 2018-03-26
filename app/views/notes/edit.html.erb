@@ -1,0 +1,12 @@
+<h1>Edit your notes here!</h1>
+
+<%= form_for @note, url: note_path, method: :put do |note| %>
+
+<%= note.text_field :title%>
+<%= note.text_area :body%>
+
+<div>
+<%= note.submit %>
+</div>
+
+<% end %>
