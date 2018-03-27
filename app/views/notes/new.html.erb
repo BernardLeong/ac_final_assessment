@@ -1,4 +1,4 @@
-<h1>New Note</h1>
+<h1>Create new note here!</h1>
 
 <%= form_for @note, url: notes_path, method: :post do |note| %>
   <%= note.text_field :title, :maxlength => 140, placeholder: "Type your title here!"  %> <br><br>
@@ -6,4 +6,4 @@
   <%= note.submit %>
 <% end %>
 <br>
-<input type="button" value="Go back!" onclick="history.back()">
+<input type="button" value="Back" onclick="history.back()">

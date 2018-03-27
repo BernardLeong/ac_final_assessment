@@ -1,13 +1,15 @@
-<div class="notes_all">
-  <h3>Saluations! <%= current_user.username %></h3>
+
   <% @notes.each do |note| %>
-    <p><%= note.title %></p> 
-    <p><%= note.body %></p> 
-    <p><%= note.user.username %></p> 
+    <p class= "notes_each"><strong> Note title:</strong> <%= note.title %></p> 
+    <p class= "notes_each"><strong>Note body:</strong>  <%= note.body %></p> 
+    <p class= "notes_each"><small>By: <%= note.user.username %></small></p> 
+  <div class = "notes_crud">
     <% if current_user == note.user %>
       <%= link_to 'Delete note', note_path(note), method: :delete, data: {confirm:"Delete this note?"} %>
       <%= link_to 'Edit note', edit_note_path(note) %>
     <% end %>
+  </div>
+  
     <% if current_user %>
       <% if Follow.find_by(following_id: note.user, follower_id: current_user) %>
         <% else %>
@@ -17,27 +19,25 @@
   <% end %>
         </div>
       <% end %>
-  <% if Like.find_by(note: note, user: current_user) %>
-    <%= link_to "Unlike", unlike_note_path(note), method: :delete %>
-      <%= note.likes.count %>    
-  <% else %>
-    <%= link_to "Like", like_note_path(note), method: :post %>
-    <%= note.likes.count %>
-  <% end %>
+  <div class = "likes">
+    <% if Like.find_by(note: note, user: current_user) %>
+      <%= link_to "Unlike", unlike_note_path(note), method: :delete %>
+        <%= note.likes.count %>    
     <% else %>
-      <div>
-        <%= note.title %> <br>
-        <%= note.body %> <br>
-        <%= note.user.username %> <br>
-      </div>
+      <%= link_to "Like", like_note_path(note), method: :post %>
+      <%= note.likes.count %>
+    <% end %>
+  </div>
+    <% else %>
       <br><hr><br>
     <% end %>
   <% end %>
-</div>
-
+  
 <div class="sidebar">
   <% if current_user %>
     <h2>People I am following</h2>
+
+    <p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem</p>
     <% if @follows == nil %>
       <div>No User You Are Following</div>
     <% else %>
