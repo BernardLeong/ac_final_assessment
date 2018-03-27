@@ -2,8 +2,8 @@ class NotesController < ApplicationController
   before_action :authenticate_user!, except: :index
 
   def index
-    @notes = Note.all.order("created_at DESC")
-    @users = User.all.order("username ASC")
+    @users = User.all
+    @notes = Note.all
     if current_user
       @follows = Follow.where(follower_id: current_user.id)
     end
@@ -19,12 +19,12 @@ class NotesController < ApplicationController
     redirect_to notes_path
   end
 
-  def destroy;
+  def destroy
     Note.find(params[:id]).destroy
     redirect_to notes_path
   end
 
-  def edit; 
+  def edit
     @note = Note.find(params[:id])
   end
 

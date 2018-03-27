@@ -1,13 +1,15 @@
-#notes{
-  display: grid;
-  grid-template-columns: 4fr 1fr;
+.title {
+  margin-left: 40%;
 }
 
-.notes_all {
-  border: 2px solid red;
-  border-radius: 1em;
+.notes_crud {
+  margin-left: 40%;
 }
 
-div.sidebar {
-  padding: 8%;
+.notes_each {
+  margin-left: 40%;
+}
+
+.likes {
+  margin-left: 40%;
 }
